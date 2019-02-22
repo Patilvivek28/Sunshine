@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Sunshine</string>
+
+    <string name="formatted_date">%1$s - %2$s - %3$s</string>
+</resources>
