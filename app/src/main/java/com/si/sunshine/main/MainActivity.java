@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.si.sunshine.R;
+import com.si.sunshine.main.components.JsonWeatherTask;
 
 import java.util.Calendar;
 
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         initializeViews();
 
-        new MainPresenter(this);
+        new MainPresenter(this, new JsonWeatherTask());
         presenter.start();
 
         // Get Current Date

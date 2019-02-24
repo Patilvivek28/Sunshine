@@ -1,10 +1,8 @@
 package com.si.sunshine.main;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.si.sunshine.main.components.WeatherHttpClient;
-import com.si.sunshine.main.model.WeatherDetails;
+import com.si.sunshine.main.components.JsonWeatherTask;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -12,19 +10,21 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class MainPresenter implements MainContract.Presenter {
+public class MainPresenter implements MainContract.Presenter, JsonWeatherTask.JsonWeatherTaskListener {
 
     private static final String TAG = MainPresenter.class.getSimpleName();
     private MainContract.View view;
+    private JsonWeatherTask weatherTask;
 
-    MainPresenter(MainContract.View view) {
+    MainPresenter(MainContract.View view, JsonWeatherTask weatherTask) {
         this.view = view;
+        this.weatherTask = weatherTask;
         this.view.setPresenter(this);
     }
 
     @Override
     public void start() {
-        //Do nothing
+        weatherTask.setListener(this);
     }
 
     private void fetchWeatherDetails(int dayOfMonth, int monthOfYear, int year) {
@@ -50,8 +50,7 @@ public class MainPresenter implements MainContract.Presenter {
         }
         date = date / 1000;
 
-        JsonWeatherTask task = new JsonWeatherTask();
-        task.execute(date);
+        weatherTask.execute(date);
     }
 
     @Override
@@ -74,30 +73,13 @@ public class MainPresenter implements MainContract.Presenter {
         return true;
     }
 
-    private class JsonWeatherTask extends AsyncTask<Long, Void, WeatherDetails> {
+    @Override
+    public void onPreExecute() {
+        view.onPreExecute();
+    }
 
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            view.onPreExecute();
-        }
-
-        @Override
-        protected WeatherDetails doInBackground(Long... inputParams) {
-            WeatherDetails weatherDetails;
-            String data = new WeatherHttpClient().getWeatherData(inputParams[0]);
-
-            weatherDetails = WeatherDetails.getWeather(data);
-
-            return weatherDetails;
-        }
-
-        @Override
-        protected void onPostExecute(WeatherDetails weatherDetails) {
-            super.onPostExecute(weatherDetails);
-
-            view.onPostExecute(String.valueOf(weatherDetails.getMinTemp()), String.valueOf(weatherDetails.getMaxTemp()));
-        }
+    @Override
+    public void onPostExecute(String minTemp, String maxTemp) {
+        view.onPostExecute(minTemp, maxTemp);
     }
 }
