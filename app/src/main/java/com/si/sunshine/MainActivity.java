@@ -54,14 +54,14 @@ public class MainActivity extends AppCompatActivity {
                     = new DatePickerDialog(this,
                     (datePicker, year, monthOfYear, dayOfMonth) -> {
                         showDate(dayOfMonth, monthOfYear, year);
-                        formatAndFetchData(dayOfMonth, monthOfYear, year);
                     },
                     initialYear, initialMonthOfYear, initialDayOfMonth);
             datePickerDialog.show();
         });
     }
 
-    private void formatAndFetchData(int dayOfMonth, int monthOfYear, int year) {
+    private void fetchWeatherDetails(int dayOfMonth, int monthOfYear, int year) {
+
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
         dateFormat.setTimeZone(TimeZone.getDefault());
         long date = 0;
@@ -82,16 +82,31 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "ParseException: ", e);
         }
         date = date / 1000;
-        fetchWeatherDetails(date);
-    }
 
-    private void fetchWeatherDetails(long date) {
         JsonWeatherTask task = new JsonWeatherTask();
         task.execute(date);
     }
 
     private void showDate(int dayOfMonth, int monthOfYear, int year) {
+        weatherDetailsCard.setVisibility(View.GONE);
         selectedDate.setText(getResources().getString(R.string.formatted_date, String.valueOf(dayOfMonth), String.valueOf(monthOfYear + 1), String.valueOf(year)));
+
+        if (isPrime(dayOfMonth)) {
+            fetchWeatherDetails(dayOfMonth, monthOfYear, year);
+        }
+    }
+
+    public boolean isPrime(int num) {
+        if (num > 2 && num % 2 == 0) {
+            return false;
+        }
+        int top = (int) Math.sqrt(num) + 1;
+        for (int i = 3; i < top; i += 2) {
+            if (num % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private class JsonWeatherTask extends AsyncTask<Long, Void, WeatherDetails> {
