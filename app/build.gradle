@@ -30,9 +30,8 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', OpenWeatherApiKey
-        it.buildConfigField 'String', 'BASE_URL', OpenWeatherBaseUrl
-        it.buildConfigField 'String', 'GET_DATA_URL', OpenWeatherGetDataUrl
+        it.buildConfigField 'String', 'BASE_URL', BaseUrl
+        it.buildConfigField 'String', 'ADDITIONAL_DATE_PARAMS', AdditionalDateParams
     }
 
     compileOptions {
