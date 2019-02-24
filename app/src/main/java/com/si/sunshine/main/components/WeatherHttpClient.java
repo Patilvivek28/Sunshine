@@ -1,6 +1,8 @@
-package com.si.sunshine;
+package com.si.sunshine.main.components;
 
 import android.util.Log;
+
+import com.si.sunshine.BuildConfig;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,12 +14,12 @@ import java.net.URLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
-class WeatherHttpClient {
+public class WeatherHttpClient {
 
     private static final String TAG = "WeatherHttpClient";
     private static final String DEFAULT_LAT_LANG = "18.5204,73.8567";
 
-    String getWeatherData(long dateInUnix) {
+    public String getWeatherData(long dateInUnix) {
 
         String result = null;
         int resCode;

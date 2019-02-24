@@ -1,4 +1,4 @@
-package com.si.sunshine.model;
+package com.si.sunshine.main.model;
 
 import android.util.Log;
 
