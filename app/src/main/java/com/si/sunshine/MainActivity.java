@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button selectDateButton = findViewById(R.id.select_date_button);
         selectedDate = findViewById(R.id.selected_date_text);
         weatherDetailsTv = findViewById(R.id.weather_details_text);
@@ -64,10 +65,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(WeatherDetails weatherDetails) {
             super.onPostExecute(weatherDetails);
 
-            weatherDetailsTv.setText(weatherDetails.getDate()+"\n"+
+            weatherDetailsTv.setText(weatherDetails.getDate() + "\n" +
                     getResources().getString(R.string.formatted_temp_details,
-                    String.valueOf(weatherDetails.getMinTemp()),
-                    String.valueOf(weatherDetails.getMaxTemp())));
+                            String.valueOf(weatherDetails.getMinTemp()),
+                            String.valueOf(weatherDetails.getMaxTemp())));
         }
     }
 }
