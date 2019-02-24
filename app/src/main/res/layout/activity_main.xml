@@ -16,13 +16,26 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Select any prime date to see that date\'s temperature values."
+        android:textSize="24sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/select_date_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/bordered_button"
@@ -30,7 +43,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/info" />
 
     <TextView
         android:id="@+id/selected_date_text"
@@ -38,20 +51,102 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Selected Date..."
-        android:textSize="36sp"
+        android:textSize="24sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/select_date_button" />
 
-    <TextView
-        android:id="@+id/weather_details_text"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/weather_details_card"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
-        android:text="Weather Details"
-        android:textSize="24sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selected_date_text" />
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@android:color/transparent"
+        android:elevation="8dp"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/selected_date_text"
+        tools:visibility="visible">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/min_temp_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_sun"
+                app:layout_constraintEnd_toStartOf="@id/min_temp_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/min_temp_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Min Temperature"
+                app:layout_constraintEnd_toStartOf="@id/min_temp_value"
+                app:layout_constraintHorizontal_weight="0.8"
+                app:layout_constraintStart_toEndOf="@id/min_temp_logo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/min_temp_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="end"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.3"
+                app:layout_constraintStart_toEndOf="@id/min_temp_text"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="22.0 °C" />
+
+            <ImageView
+                android:id="@+id/max_temp_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:paddingBottom="8dp"
+                android:src="@drawable/ic_sun"
+                app:layout_constraintEnd_toStartOf="@id/max_temp_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/min_temp_logo" />
+
+            <TextView
+                android:id="@+id/max_temp_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:paddingBottom="8dp"
+                android:text="Max Temperature"
+                app:layout_constraintEnd_toStartOf="@id/max_temp_value"
+                app:layout_constraintHorizontal_weight="0.8"
+                app:layout_constraintStart_toEndOf="@id/max_temp_logo"
+                app:layout_constraintTop_toBottomOf="@id/min_temp_logo" />
+
+            <TextView
+                android:id="@+id/max_temp_value"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="end"
+                android:paddingBottom="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="0.3"
+                app:layout_constraintStart_toEndOf="@id/max_temp_text"
+                app:layout_constraintTop_toBottomOf="@id/min_temp_logo"
+                tools:text="40.0 °C" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>

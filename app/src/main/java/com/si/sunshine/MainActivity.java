@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private TextView selectedDate;
-    private TextView weatherDetailsTv;
+    private CardView weatherDetailsCard;
+    private TextView minTempTv;
+    private TextView maxTempTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_bar);
         Button selectDateButton = findViewById(R.id.select_date_button);
         selectedDate = findViewById(R.id.selected_date_text);
-        weatherDetailsTv = findViewById(R.id.weather_details_text);
+        weatherDetailsCard = findViewById(R.id.weather_details_card);
+        minTempTv = findViewById(R.id.min_temp_value);
+        maxTempTv = findViewById(R.id.max_temp_value);
 
         // Get Current Date
         final Calendar c = Calendar.getInstance();
@@ -112,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(weatherDetails);
 
             progressBar.setVisibility(View.GONE);
-            weatherDetailsTv.setText(getResources().getString(R.string.formatted_temp_details,
-                    String.valueOf(weatherDetails.getMinTemp()),
-                    String.valueOf(weatherDetails.getMaxTemp())));
+            weatherDetailsCard.setVisibility(View.VISIBLE);
+            minTempTv.setText(getResources().getString(R.string.formatted_temp_value, String.valueOf(weatherDetails.getMinTemp())));
+            maxTempTv.setText(getResources().getString(R.string.formatted_temp_value, String.valueOf(weatherDetails.getMaxTemp())));
         }
     }
 }
