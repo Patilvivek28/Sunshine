@@ -11,24 +11,16 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class WeatherHttpClient {
+class WeatherHttpClient {
 
-    private static String TAG = "WeatherHttpClient";
-    private static String BASE_URL = "http://api.openweathermap.org/data/2.5/weather?q=";
-    private static String UNITS_KEY = "&units=";
-    private static String UNITS_VALUE = "metric";
-    private static String APP_ID_KEY = "&APPID=";
+    private static final String TAG = "WeatherHttpClient";
 
-
-    public String getWeatherData(String location) {
+    String getWeatherData(String location) {
         HttpURLConnection connection = null;
         InputStream inputStream = null;
 
         try {
-            connection = (HttpURLConnection) (new URL(BASE_URL + location
-                    + UNITS_KEY + UNITS_VALUE
-                    + APP_ID_KEY + BuildConfig.OPEN_WEATHER_MAP_API_KEY)
-            ).openConnection();
+            connection = (HttpURLConnection) (new URL(BuildConfig.GET_DATA_URL)).openConnection();
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
             connection.setDoOutput(true);
