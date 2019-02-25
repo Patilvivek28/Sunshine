@@ -50,6 +50,8 @@ public class MainPresenter implements MainContract.Presenter, JsonWeatherTask.Js
         }
         date = date / 1000;
 
+        weatherTask = new JsonWeatherTask();
+        weatherTask.setListener(this);
         weatherTask.execute(date);
     }
 
